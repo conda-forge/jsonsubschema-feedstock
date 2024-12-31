@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/jsonsubschema-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/jsonsubschema-{{ version }}.tar.gz
   sha256: 852e0878842122a046fce5b3db1bfb801a26de20a2dfaebd8df20f366a762d2c
 
 build:
@@ -14,14 +14,14 @@ build:
     - jsonsubschema=jsonsubschema.cli:main
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.7
+    - python {{ python_min }}
     - pip
   run:
-    - python >=3.7
+    - python >={{ python_min }}
     - portion
     - greenery <=3.3.3
     - jsonschema
@@ -35,6 +35,7 @@ test:
     - jsonsubschema --help
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/IBM/jsonsubschema
